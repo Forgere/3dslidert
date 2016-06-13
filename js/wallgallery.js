@@ -172,7 +172,8 @@ var Gallery = (function() {
 		defaults = {
 			speed : 800,
 			easing : 'ease-in-out',
-			margin : 400
+			margin : 400,
+			wallNumber : 4
 		},
 		// css transitions and 3d transforms support
 		support = { transitions : Modernizr.csstransitions, transforms3d : Modernizr.csstransforms3d },
@@ -245,7 +246,7 @@ var Gallery = (function() {
 			this.layout = typeof Gallery.settings.layout != 'undefined' && Gallery.settings.layout instanceof Array && support.transforms3d ? Gallery.settings.layout : this.getLayoutSettings();
 			
 			var pos = 0, max = 0, prev = 0,
-				wallsCount = support.transforms3d ? 4 : 1;
+				wallsCount = support.transforms3d ? Gallery.settings.wallNumber : 1;
 
 			for( var i = 0; i < wallsCount; ++i ) {
 
@@ -302,10 +303,15 @@ var Gallery = (function() {
 		},
 		getLayoutSettings : function() {
 
-			var perwall = Math.floor( this.totalItems / 4 ),
-				lastwall = perwall + this.totalItems % 4;
-
-			return support.transforms3d ? [perwall,perwall,perwall,lastwall] : [this.totalItems];
+			var perwall = Math.floor( this.totalItems / Gallery.settings.wallNumber ),
+				lastwall = perwall + this.totalItems % Gallery.settings.wallNumber;
+			//墙面图片数量数组
+			var wallImageNumberArray = [];
+			for (var i = 0; i < Gallery.settings.wallNumber; i++) {
+				wallImageNumberArray[i] = perwall;
+			}
+			wallImageNumberArray[Gallery.settings.wallNumber-1] = lastwall;
+			return support.transforms3d ? wallImageNumberArray : [this.totalItems];
 
 		},
 		// displays the items of a wall on a container $wallElem
@@ -317,7 +323,7 @@ var Gallery = (function() {
 				wall = this.walls[ this.currentWall ],
 				totalLeft = 0, lastItemW = 0,
 				wallMarginLeft = 0, sumWidths = 0;
-
+				console.log(wall);
 			for( var i = 0; i < wall.itemsCount; ++i ) {
 
 				var $item = wall.$items.eq( i );
@@ -488,19 +494,16 @@ var Gallery = (function() {
 			var wall = this.walls[ this.currentWall ],
 				wallItemsCount = wall.itemsCount,
 				changeWall = false;
-
 			// check on direction and update currentItem and currentWall value
 			if( dir === 'next' ) {
 
 				if( support.transforms3d ) {
 					if( this.currentItem < wallItemsCount - 1 ) {
 						++this.currentItem;
-					}
-					else {
-
+					}else {
 						this.lastWall = this.currentWall;
 						// update current wall
-						this.currentWall < 3 ? ++this.currentWall : this.currentWall = 0;
+						this.currentWall < (Gallery.settings.wallNumber-1) ? ++this.currentWall : this.currentWall = 0;
 						// update wall
 						wall = this.walls[ this.currentWall ];
 						changeWall = true;
@@ -508,11 +511,9 @@ var Gallery = (function() {
 						this.currentItem = 0;
 
 					}
-				}
-				else if( this.currentItem < wallItemsCount - 1 ) {
+				}else if( this.currentItem < wallItemsCount - 1 ) {
 					++this.currentItem;
-				}
-				else {
+				}else {
 					this.walking = false;
 					return false;
 				}
@@ -528,7 +529,7 @@ var Gallery = (function() {
 
 						this.lastWall = this.currentWall;
 						// update current wall
-						this.currentWall > 0 ? --this.currentWall : this.currentWall = 3;			
+						this.currentWall > 0 ? --this.currentWall : this.currentWall = (Gallery.settings.wallNumber-1);
 						// update wall
 						wall = this.walls[ this.currentWall ];
 						changeWall = true;
