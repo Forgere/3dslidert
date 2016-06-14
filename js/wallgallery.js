@@ -175,6 +175,7 @@ var Gallery = (function () {
 			speed: 800,
 			easing: 'ease-in-out',
 			margin: 400,
+			romoteObject:[]
 		},
 		// css transitions and 3d transforms support
 		support = {
@@ -199,8 +200,8 @@ var Gallery = (function () {
 		transformName = transformNames[Modernizr.prefixed('transform')];
 	function init(settings) {
 		//放置于最前面，引入所有图片数据
-		addImages(romoteObject);
 		Gallery.settings = $.extend(true, {}, defaults, settings);
+		addImages(Gallery.settings.romoteObject);
 		// preload images
 		$itemsContainer.imagesLoaded(buildRoom);
 		console.log(romoteObject);
