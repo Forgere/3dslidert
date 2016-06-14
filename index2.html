@@ -13,102 +13,6 @@
 			
 			<div id="gr-gallery" class="gr-gallery">
 				<div class="gr-main">
-					<figure>
-						<div>
-							<img src="images/11.jpg" alt="img01" />
-						</div>
-						<figcaption>
-							<h2><span>Penn. Station, Madison Square Garden and Empire State Building</span></h2>
-							<div><p>New York City, 2009, by CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC</p>
-                            <p>New York City, 2009, by CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC</p>
-                            <p>New York City, 2009, by CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC</p></div>
-						</figcaption>
-					</figure>
-					<figure>
-						<div>
-							<img src="images/12.jpg" alt="img02" />
-						</div>
-						<figcaption>
-							<h2><span>American Museum of Natural History #11111111111111111111111111111</span></h2>
-							<div><p>New York City, 2009, by <a href="http://www.flickr.com/photos/thomasclaveirole">Thomas Claveirole</a></p></div>
-						</figcaption>
-					</figure>
-					<figure>
-						<div>
-							<img src="images/13.jpg" alt="img03" />
-						</div>
-						<figcaption>
-							<h2><span>NYC Marathon in Harlem #4</span></h2>
-							<div><p>New York City, 2009, by <a href="http://www.flickr.com/photos/thomasclaveirole">Thomas Claveirole</a></p></div>
-						</figcaption>
-					</figure>
-					<figure>
-						<div>
-							<img src="images/14.jpg" alt="img04" />
-						</div>
-						<figcaption>
-							<h2><span>Cathedral Church of Saint John the Divine #3</span></h2>
-							<div><p>New York City, 2009, by <a href="http://www.flickr.com/photos/thomasclaveirole">Thomas Claveirole</a></p></div>
-						</figcaption>
-					</figure>
-					<figure>
-						<div>
-							<img src="images/15.jpg" alt="img01" />
-						</div>
-						<figcaption>
-							<h2><span>SoHo</span></h2>
-							<div><p>New York City, 2009, by <a href="http://www.flickr.com/photos/thomasclaveirole">Thomas Claveirole</a></p></div>
-						</figcaption>
-					</figure>
-					<figure>
-						<div>
-							<img src="images/16.jpg" alt="img02" />
-						</div>
-						<figcaption>
-							<h2><span>Manhattan Downtown/Wall St. Heliport</span></h2>
-							<div><p>New York City, 2009, by <a href="http://www.flickr.com/photos/thomasclaveirole">Thomas Claveirole</a></p></div>
-						</figcaption>
-					</figure>
-					<figure>
-						<div>
-							<img src="images/17.jpg" alt="img03" />
-						</div>
-						<figcaption>
-							<h2><span>Musée National du Moyen Âge</span></h2>
-							<div><p>Paris, 2009, by <a href="http://www.flickr.com/photos/thomasclaveirole">Thomas Claveirole</a></p></div>
-						</figcaption>
-					</figure>
-					<figure>
-						<div>
-							<img src="images/18.jpg" alt="img08" />
-						</div>
-						<figcaption>
-							<h2><span>Métro Jussieu</span></h2>
-							<div><p>Paris, 2009, by <a href="http://www.flickr.com/photos/thomasclaveirole">Thomas Claveirole</a></p>
-						</figcaption>
-					</figure>
-					<figure>
-						<div>
-							<img src="images/19.jpg" alt="img09" />
-						</div>
-						<figcaption>
-							<h2><span>Rose Main Reading Room, New York Public Library</span></h2>
-							<div><p>New York City, 2009, by <a href="http://www.flickr.com/photos/thomasclaveirole">Thomas Claveirole</a></p></div>
-						</figcaption>
-					</figure>
-					<figure>
-						<div>
-							<img src="images/20.jpg" alt="img10" />
-						</div>
-						<figcaption>
-							<h2><span>Midtown Manhattan</span></h2>
-							<div><p>New York City, 2009, by <a href="http://www.flickr.com/photos/thomasclaveirole">Thomas Claveirole</a></p></div>
-						</figcaption>
-					</figure>
-                    <figure>
-						<div>
-							<img src="images/11.jpg" alt="img01" />
-						</div>
 				</div>
 			</div>
 		</div><!-- /container -->
@@ -116,12 +20,28 @@
 		<script src="js/wallgallery.js"></script>
 		<script>
 			$(function() {
-
-				Gallery.init( {
-					wallNumber : 6,//  墙面数量
+        romoteObject = [['images/11.jpg'],['images/15.jpg'],['images/16.jpg'],['images/17.jpg','images/18.jpg'],['images/19.jpg','images/20.jpg']];
+        function addImages(allphotos) {
+          $photoscontain = $('.gr-main');
+          $.each(allphotos,function(i){
+            $.each(this,function(j){
+                var currentphoto = allphotos[i][j];
+                var image = $("<img src = "+ currentphoto +">"),
+                    imageContain = $("<div></div>"),
+                    figcaption = $("<figcaption></figcaption>"),
+                    warp =$("<figure></figure>");
+                    console.log(image);
+                image.appendTo(imageContain);
+                imageContain.appendTo(warp);
+                warp.appendTo($photoscontain);
+                figcaption.insertAfter(imageContain);
+            });
+          });
+        }
+        addImages(romoteObject);
+				Gallery.init({
 					layout : [2,2,2,3,2,2]  //给主墙限定一个宽度是为了将图片限制在“墙”的范围内。每一面墙上的图片的数量是图片总数除以wallNumber(最后一面墙是剩下的图片)，我们也可以自定义每面墙上的图片数量(当图片总数不够填补最后一页时，有多少显示多少，没有则空白墙)
 				} );
-
 			});
 		</script>
 	</body>
