@@ -198,14 +198,31 @@ var Gallery = (function () {
 		transEndEventName = transEndEventNames[Modernizr.prefixed('transition')] + '.cbpFWSlider',
 		transformName = transformNames[Modernizr.prefixed('transform')];
 	function init(settings) {
-
+		//放置于最前面，引入所有图片数据
+		addImages(romoteObject);
 		Gallery.settings = $.extend(true, {}, defaults, settings);
 		// preload images
 		$itemsContainer.imagesLoaded(buildRoom);
+		console.log(romoteObject);
 		$items = $itemsContainer.find('figure');
-
 	}
-
+  function addImages(allphotos) {
+    $photoscontain = $('.gr-main');
+    $.each(allphotos,function(i){
+      $.each(this,function(j){
+          var currentphoto = allphotos[i][j];
+          var image = $("<img src = "+ currentphoto +">"),
+              imageContain = $("<div></div>"),
+              figcaption = $("<figcaption></figcaption>"),
+              warp =$("<figure></figure>");
+              console.log(image);
+          image.appendTo(imageContain);
+          imageContain.appendTo(warp);
+          warp.appendTo($photoscontain);
+          figcaption.insertAfter(imageContain);
+      });
+    });
+  }
 	function buildRoom() {
 		// create room with 4 walls
 		Gallery.room = new Room($items);

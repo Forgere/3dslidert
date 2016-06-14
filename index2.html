@@ -9,7 +9,7 @@
 		<script src="js/modernizr.custom.js"></script>
 	</head>
 	<body>
-		<div class="container">	
+		<div class="container">
 			
 			<div id="gr-gallery" class="gr-gallery">
 				<div class="gr-main">
@@ -20,27 +20,9 @@
 		<script src="js/wallgallery.js"></script>
 		<script>
 			$(function() {
-        romoteObject = [['images/11.jpg'],['images/15.jpg'],['images/16.jpg'],['images/17.jpg','images/18.jpg'],['images/19.jpg','images/20.jpg']];
-        function addImages(allphotos) {
-          $photoscontain = $('.gr-main');
-          $.each(allphotos,function(i){
-            $.each(this,function(j){
-                var currentphoto = allphotos[i][j];
-                var image = $("<img src = "+ currentphoto +">"),
-                    imageContain = $("<div></div>"),
-                    figcaption = $("<figcaption></figcaption>"),
-                    warp =$("<figure></figure>");
-                    console.log(image);
-                image.appendTo(imageContain);
-                imageContain.appendTo(warp);
-                warp.appendTo($photoscontain);
-                figcaption.insertAfter(imageContain);
-            });
-          });
-        }
-        addImages(romoteObject);
+        romoteObject = [['images/12.jpg'],['images/13.jpg'],['images/14.jpg'],['images/15.jpg','images/16.jpg'],['images/17.jpg','images/18.jpg']];
 				Gallery.init({
-					layout : [2,2,2,3,2,2]  //给主墙限定一个宽度是为了将图片限制在“墙”的范围内。每一面墙上的图片的数量是图片总数除以wallNumber(最后一面墙是剩下的图片)，我们也可以自定义每面墙上的图片数量(当图片总数不够填补最后一页时，有多少显示多少，没有则空白墙)
+					layout : [1,1,1,1,1,1]  //给主墙限定一个宽度是为了将图片限制在“墙”的范围内。每一面墙上的图片的数量是图片总数除以wallNumber(最后一面墙是剩下的图片)，我们也可以自定义每面墙上的图片数量(当图片总数不够填补最后一页时，有多少显示多少，没有则空白墙)
 				} );
 			});
 		</script>
