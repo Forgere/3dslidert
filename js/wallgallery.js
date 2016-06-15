@@ -336,7 +336,6 @@ var Gallery = (function () {
 		},
 		// displays the items of a wall on a container $wallElem
 		renderWall: function ($wallElem) {
-			console.log(this.currentWall);
 			var $wallElem = $wallElem || this.$mainWall,
 				wallH = $wallElem.height(),
 				wallmargins = 150,

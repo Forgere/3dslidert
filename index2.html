@@ -295,7 +295,6 @@
 					//图片src并入数组
 					romoteObject[i] = "http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + ajax.photos[i].image + "@80p";
 				});
-				console.log(romoteObject);
 				Gallery.init({
 					layout : ajaxlayout,  //给主墙限定一个宽度是为了将图片限制在“墙”的范围内。每一面墙上的图片的数量是图片总数除以wallNumber(最后一面墙是剩下的图片)，我们也可以自定义每面墙上的图片数量(当图片总数不够填补最后一页时，有多少显示多少，没有则空白墙)
           romoteObject : romoteObject,// 图片数组
