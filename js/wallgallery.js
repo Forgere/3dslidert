@@ -204,24 +204,21 @@ var Gallery = (function () {
 		addImages(Gallery.settings.romoteObject);
 		// preload images
 		$itemsContainer.imagesLoaded(buildRoom);
-		console.log(romoteObject);
 		$items = $itemsContainer.find('figure');
 	}
+	// allphotos一个所有图片数组
   function addImages(allphotos) {
     $photoscontain = $('.gr-main');
     $.each(allphotos,function(i){
-      $.each(this,function(j){
-          var currentphoto = allphotos[i][j];
+          var currentphoto = allphotos[i];
           var image = $("<img src = "+ currentphoto +">"),
               imageContain = $("<div></div>"),
               figcaption = $("<figcaption></figcaption>"),
               warp =$("<figure></figure>");
-              console.log(image);
           image.appendTo(imageContain);
           imageContain.appendTo(warp);
           warp.appendTo($photoscontain);
           figcaption.insertAfter(imageContain);
-      });
     });
   }
 	function buildRoom() {
@@ -348,7 +345,6 @@ var Gallery = (function () {
 				lastItemW = 0,
 				wallMarginLeft = 0,
 				sumWidths = 0;
-			console.log(wall);
 			for (var i = 0; i < wall.itemsCount; ++i) {
 
 				var $item = wall.$items.eq(i);
