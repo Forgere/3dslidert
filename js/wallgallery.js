@@ -210,7 +210,7 @@ var Gallery = (function () {
   function addImages(allphotos) {
     $photoscontain = $('.gr-main');
     $.each(allphotos,function(i){
-          var currentphoto = allphotos[i];
+          var currentphoto = allphotos[i].photo;
           var image = $("<img src = "+ currentphoto +">"),
               imageContain = $("<div></div>"),
               figcaption = $("<figcaption></figcaption>"),
@@ -218,6 +218,7 @@ var Gallery = (function () {
           image.appendTo(imageContain);
           imageContain.appendTo(warp);
           warp.appendTo($photoscontain);
+          figcaption.html(allphotos[i].describe);
           figcaption.insertAfter(imageContain);
     });
   }

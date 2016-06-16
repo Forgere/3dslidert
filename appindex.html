@@ -92,6 +92,46 @@
 			</footer>
 		</div>
 		<!-- /container -->
-<script src="http://libs.useso.com/js/jquery/1.8.3/jquery.min.js"></script>
+		<script src="http://libs.useso.com/js/jquery/1.8.3/jquery.min.js"></script>
+		<script>
+			$(function(){
+				$.ajax({
+					async:false,
+					url: "http://dev.kadashow.com:8000/api/v1/galleryshare/MzE4OTE0MDc2ODA=/",
+					type: "GET",
+					dataType: "jsonp",
+					jsonp: "callback",
+					jsonpCallback: 'success_jsonpCallback',
+					contentType: "application/jsonp; charset=utf-8",
+					success: function(result){
+						console.log(result.scenes[0].photo_seq.split(',')[0]);
+						var ajax = result;
+						var ajaxphotos = ajax.scenes,
+								// 每面墙的容量
+								ajaxlayout = [],
+								//由图片src，描述信息组成数组
+								romoteObject = [],
+								//图片id
+								photosId = [];
+								//根据id获取到的src数组；
+								photosSrc = [];
+
+						$.each(ajaxphotos,function(i) {
+							ajaxlayout[i] = ajaxphotos[i].scene_template.capacity;
+							photosId.push.apply( photosId, ajaxphotos[i].photo_seq.split(","));
+							romoteObject[i]=[];
+							$.each(ajax.photos,function(j) {
+								if(ajax.photos[j].id == photosId[i]){
+									photosSrc[i] = ajax.photos[j].image;
+									romoteObject[i].describe = ajax.photos[j].description;
+								}
+							});
+							//图片src并入数组
+							romoteObject[i].photo = "http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + photosSrc[i] + "@80p";
+						});
+					}
+				});
+			})
+		</script>
 	</body>
 </html>
