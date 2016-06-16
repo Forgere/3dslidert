@@ -22,10 +22,10 @@
 			<div class="sharearea">
 				<!-- //title -->
 				<div class="group miantitle">
-					<img src="images/raw_1463640695.png" alt="">
+					<img src="" alt="">
 					<div class="container">
 						<div class="description">
-							<h3>标题</h3>
+							<h3></h3>
 							<p>如果你无法简洁的表达你的想法，那只说明你还不够了解它。</p>
 							<p class = "article">  -- 阿尔伯特·爱因斯坦XXXXXXXXXXXXXX...展开</p>
 						</div>
@@ -35,53 +35,26 @@
 				<!-- //用户 -->
 				<div class="group user">
 					<div class="headimg">
-						<img src="images/raw_1459328031.png" alt="">
+						<img id="userAvatar" src="" alt="">
 						<span>二维码</span>
 					</div>
 					<div class="userinfo">
-						<span class="username">昵称</span>
+						<span class="username"></span>
 						<i class="fa fa-mars usersex" aria-hidden="true"></i>
 					</div>
 				</div>
 				<!-- zhaop -->
-				<div class="group photo">
-					<div class="showimage">
-						<a href="index2.html">
-							<img src="images/raw_1459327978.png" alt="">
-						</a>
-					</div>
-					<div class="showimage_description">
-						<div class="container">
-							<p>如果你无法简洁的表达你的想法，那只说明你还不够了解它。</p>
-							<p class = "article">  -- 阿尔伯特·爱因斯坦XXXXXXXXXXXXXX...展开</p>
-						</div>
-					</div>
-				</div>
-				<div class="group photo">
-					<div class="showimage">
-						<a href="index2.html">
-							<img src="images/raw_1459327978.png" alt="">
-						</a>
-					</div>
-					<div class="showimage_description">
-						<div class="container">
-							<p>如果你无法简洁的表达你的想法，那只说明你还不够了解它。</p>
-							<p class = "article">  -- 阿尔伯特·爱因斯坦XXXXXXXXXXXXXX...展开</p>
-						</div>
-					</div>
+				<div class="zhaopian">
 				</div>
 				<!-- //date -->
 				<div class="date">
 					<div class="container">
-						<span>发布于2016-05-16T10:20:44 883702</span>
+						<span>发布于</span>
+						<span class="created_time"></span>
 					</div>
 				</div>
 				<!-- //关注 -->
 				<div class="focus">
-					<span><img src="images/raw_1459328031.png" alt=""></span>
-					<span><img src="images/raw_1459328031.png" alt=""></span>
-					<span><img src="images/raw_1459328031.png" alt=""></span>
-					<span><img src="images/raw_1459328031.png" alt=""></span>
 				</div>
 				<div class="others">
 					<span>二维码</span>
@@ -92,46 +65,65 @@
 			</footer>
 		</div>
 		<!-- /container -->
-		<script src="http://libs.useso.com/js/jquery/1.8.3/jquery.min.js"></script>
-		<script>
-			$(function(){
-				$.ajax({
-					async:false,
-					url: "http://dev.kadashow.com:8000/api/v1/galleryshare/MzE4OTE0MDc2ODA=/",
-					type: "GET",
-					dataType: "jsonp",
-					jsonp: "callback",
-					jsonpCallback: 'success_jsonpCallback',
-					contentType: "application/jsonp; charset=utf-8",
-					success: function(result){
-						console.log(result.scenes[0].photo_seq.split(',')[0]);
-						var ajax = result;
-						var ajaxphotos = ajax.scenes,
-								// 每面墙的容量
-								ajaxlayout = [],
-								//由图片src，描述信息组成数组
-								romoteObject = [],
-								//图片id
-								photosId = [];
-								//根据id获取到的src数组；
-								photosSrc = [];
-
-						$.each(ajaxphotos,function(i) {
-							ajaxlayout[i] = ajaxphotos[i].scene_template.capacity;
-							photosId.push.apply( photosId, ajaxphotos[i].photo_seq.split(","));
-							romoteObject[i]=[];
-							$.each(ajax.photos,function(j) {
-								if(ajax.photos[j].id == photosId[i]){
-									photosSrc[i] = ajax.photos[j].image;
-									romoteObject[i].describe = ajax.photos[j].description;
-								}
-							});
-							//图片src并入数组
-							romoteObject[i].photo = "http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + photosSrc[i] + "@80p";
-						});
-					}
+<script src="http://libs.useso.com/js/jquery/1.8.3/jquery.min.js"></script>
+<script>
+	$(function(){
+		var reg = /id=[a-zA-Z0-9]{15}/;
+		var ziduan = location.search.match(reg)[0].split('=')[1];
+		$.ajax({
+			async:false,
+			url: "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"=/?format=jsonp&callback=cb",
+			type: "GET",
+			dataType: "jsonp",
+			jsonp: "callback",
+			jsonpCallback: 'success_jsonpCallback',
+			contentType: "application/jsonp; charset=utf-8",
+			success: function(result){
+				//  封面
+				$('.miantitle>img').attr('src', "http://kadaphoto.img-cn-beijing.aliyuncs.com/" + result.scenes[0].scene_template.cover);
+				//头像
+				$('#userAvatar').attr('src' ,"http://kadaphoto.img-cn-beijing.aliyuncs.com/" + result.author.user_profile.avatar);
+				//昵称
+				$('.username').html(result.author.user_profile.nickname);
+				//标题
+				$('.description h3').html(result.name);
+				//like
+				var likeUser = $("<span><img></span>");
+				$.each(result.likes,function(i){
+					var src = "http://kadaphoto.img-cn-beijing.aliyuncs.com/"+result.likes[i].user_profile.avatar;
+					$('<span><img src='+src+'></span>').appendTo('.focus');
 				});
-			})
-		</script>
+				//time
+				$('.created_time').html(result.created.split("T")[0] + " " + result.created.split("T")[1].split(".")[0]);
+				//分享图片
+				var ajax = result;
+				var ajaxphotos = ajax.scenes,
+						//图片id
+						photosId = [];
+						//根据id获取到的src数组；
+						photosSrc = [];
+						//图片描述
+						photoDes = [];
+				$.each(ajaxphotos,function(i) {
+					photosId.push.apply( photosId, ajaxphotos[i].photo_seq.split(","));
+					$.each(ajax.photos,function(j) {
+						if(ajax.photos[j].id == photosId[i]){
+							photosSrc[i] = ajax.photos[j].image;
+							photoDes[i] = ajax.photos[j].description;
+						}
+					});
+							//图片src并入数组
+					photosSrc[i] = "http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + photosSrc[i];
+				});
+				$.each(photosSrc,function(i){
+					var photoDiv = $('<div class="group photo"></div>');
+					$('<div class="showimage"><a href="index2.html?id='+ziduan+'"><img src='+photosSrc[i]+' alt=""></a></div>').appendTo(photoDiv);
+					$('<div class="showimage_description"><div class="container"><p>'+photoDes[i]+'</p></div></div>').appendTo(photoDiv);
+					photoDiv.appendTo('.zhaopian');
+				});
+			}
+		});
+	});
+</script>
 	</body>
 </html>

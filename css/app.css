@@ -97,13 +97,21 @@ footer{
 .sharearea .user .userinfo{
 	display: flex;
 	justify-content: center;
+	margin-left: 10px;
+}
+#userAvatar{
+	width: 55px;
+	height: 55px;
+	border-radius: 50%;
 }
 .sharearea .user .userinfo .username , .sharearea .user .userinfo .usersex{
-	width: 30px;
 	text-align: center;
 	height: 34px;
 	line-height: 34px;
 	display: inline-block;
+}
+.sharearea .user .userinfo .usersex{
+	margin-left: 10px;
 }
 .photo .showimage{
 }
@@ -136,6 +144,7 @@ footer{
 .focus span img{
 	width: 34px;
 	height: 34px;
+	border-radius: 50%;
 }
 .others{
 	height: 84px;

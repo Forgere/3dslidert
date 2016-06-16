@@ -19,16 +19,17 @@
 		<script src="js/wallgallery.js"></script>
 		<script>
 			$(function() {
+				var reg = /id=[a-zA-Z0-9]{15}/;
+				var ziduan = location.search.match(reg)[0].split('=')[1];
 				$.ajax({
 					async:false,
-					url: "http://dev.kadashow.com:8000/api/v1/galleryshare/MzE4OTE0MDc2ODA=/",
+					url: "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"=/?format=jsonp&callback=cb",
 					type: "GET",
 					dataType: "jsonp",
 					jsonp: "callback",
 					jsonpCallback: 'success_jsonpCallback',
 					contentType: "application/jsonp; charset=utf-8",
 					success: function(result){
-						console.log(result.scenes[0].photo_seq.split(',')[0]);
 						var ajax = result;
 						var ajaxphotos = ajax.scenes,
 								// 每面墙的容量
