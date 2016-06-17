@@ -26,8 +26,7 @@
 					<div class="container">
 						<div class="description">
 							<h3></h3>
-							<p>如果你无法简洁的表达你的想法，那只说明你还不够了解它。</p>
-							<p class = "article">  -- 阿尔伯特·爱因斯坦XXXXXXXXXXXXXX...展开</p>
+							<p></p>
 						</div>
 					</div>
 				</div>
@@ -40,7 +39,7 @@
 					</div>
 					<div class="userinfo">
 						<span class="username"></span>
-						<i class="fa fa-mars usersex" aria-hidden="true"></i>
+						<i class="fa usersex" aria-hidden="true"></i>
 					</div>
 				</div>
 				<!-- zhaop -->
@@ -57,15 +56,15 @@
 				<div class="focus">
 				</div>
 				<div class="others">
-					<span>二维码</span>
 					<span class= "othersitems">其他作品</span>
 				</div>
 			</div>
 			<footer>
+				<img src="images/1.pic_hd.jpg" alt="">
 			</footer>
 		</div>
 		<!-- /container -->
-<script src="http://libs.useso.com/js/jquery/1.8.3/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script>
 	$(function(){
 		var reg = /id=[a-zA-Z0-9]{15}/;
@@ -79,14 +78,18 @@
 			jsonpCallback: 'success_jsonpCallback',
 			contentType: "application/jsonp; charset=utf-8",
 			success: function(result){
-				//  封面
-				$('.miantitle>img').attr('src', "http://kadaphoto.img-cn-beijing.aliyuncs.com/" + result.scenes[0].scene_template.cover);
 				//头像
 				$('#userAvatar').attr('src' ,"http://kadaphoto.img-cn-beijing.aliyuncs.com/" + result.author.user_profile.avatar);
 				//昵称
 				$('.username').html(result.author.user_profile.nickname);
+				if(result.author.user_profile.gender){
+					$('.userinfo i').addClass('fa-venus');
+				}else{
+					$('.userinfo i').addClass('fa-mars');
+				}
 				//标题
 				$('.description h3').html(result.name);
+				$('.description p').html(result.description);
 				//like
 				var likeUser = $("<span><img></span>");
 				$.each(result.likes,function(i){
@@ -120,6 +123,8 @@
 					$('<div class="showimage"><a href="index2.html?id='+ziduan+'"><img src='+photosSrc[i]+' alt=""></a></div>').appendTo(photoDiv);
 					$('<div class="showimage_description"><div class="container"><p>'+photoDes[i]+'</p></div></div>').appendTo(photoDiv);
 					photoDiv.appendTo('.zhaopian');
+				//  封面
+				$('.miantitle>img').attr('src', photosSrc[0]);
 				});
 			}
 		});

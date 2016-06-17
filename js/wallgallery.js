@@ -31,7 +31,6 @@ $special = $event.special.debouncedresize = {
 		if (resizeTimeout) {
 			clearTimeout(resizeTimeout);
 		}
-
 		execAsap ?
 			dispatch() :
 			resizeTimeout = setTimeout(dispatch, $special.threshold);
@@ -203,6 +202,7 @@ var Gallery = (function () {
 		Gallery.settings = $.extend(true, {}, defaults, settings);
 		addImages(Gallery.settings.romoteObject);
 		// preload images
+
 		$itemsContainer.imagesLoaded(buildRoom);
 		$items = $itemsContainer.find('figure');
 	}
@@ -360,7 +360,6 @@ var Gallery = (function () {
 				} else {
 					$item.css('top', (wallH - itemH) / 2);
 				}
-
 				var itemW = wall.widths[i] || $item.width();
 
 				sumWidths += itemW;
@@ -378,7 +377,6 @@ var Gallery = (function () {
 					left: totalLeft
 				});
 				wall.widths[i] = itemW;
-
 			};
 
 			// update wall element's width
@@ -387,7 +385,6 @@ var Gallery = (function () {
 
 		},
 		changeWall: function (dir) {
-
 			// set origins
 			// change current wall's width to windows width and reorganize items accordingly:
 			this.$mainWall.css({
@@ -621,12 +618,12 @@ var Gallery = (function () {
 		showDescription: function ($descriptionEl, idx) {
 
 			var showdescfn = $.proxy(function () {
-
+				console.log($descriptionEl.html());
 				this.$caption
 					.find('div.gr-caption-inner')
 					.remove()
 					.end()
-					.append('<div class="gr-caption-inner">' + $descriptionEl.html() + '</div>')
+					.append('<div class="gr-caption-inner"><div class="gr-caption-title">'+Gallery.settings.name+'</div><div class="gr-caption-created">'+Gallery.settings.created+'</div><div class="gr-caption-description">'+ $descriptionEl.html() +'</div></div>')
 					.css('transform', 'translateY(0px)');
 				this.caption = idx;
 
