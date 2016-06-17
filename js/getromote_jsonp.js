@@ -2,8 +2,7 @@ $(function() {
 	var reg = /id=[a-zA-Z0-9]{15}/;
 	var ziduan = location.search.match(reg)[0].split('=')[1];
 	$.ajax({
-		// url: "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"=/?format=jsonp&callback=cb",
-		url: "./demodata.jsonp",
+		url: localStorage.jsonUrl || "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"=/?format=jsonp",
 		type: "GET",
 		dataType: "jsonp",
 		jsonp: "callback",
@@ -18,7 +17,7 @@ $(function() {
 					//由图片src，描述信息组成数组
 					romoteObject = [],
 					//图片id
-					photosId = [];
+					photosId = [],
 					//根据id获取到的src数组；
 					photosSrc = [];
 

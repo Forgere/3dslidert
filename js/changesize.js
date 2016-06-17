@@ -1,5 +1,5 @@
 // 判断屏幕方向
-$(window).resize(function(){
+$(window).resize(function(e){
   // console.log('resize');
   var $w = $(window),
       $wrap = $('.container'),
@@ -24,4 +24,5 @@ $(window).resize(function(){
          .removeClass('landscape')
          .addClass('portrait');
   }
+  console.log('resize');
 }).trigger('resize');
