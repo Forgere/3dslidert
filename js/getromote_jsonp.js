@@ -1,6 +1,7 @@
 $(function() {
-	var reg = /id=[a-zA-Z0-9]{15}/;
-	var ziduan = location.search.match(reg)[0].split('=')[1];
+	var reg = /id=([^&]*)/;
+	var matches = location.search.match(reg);
+	var ziduan = matches[1];
 	$.ajax({
 		url: localStorage.jsonUrl || "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"=/?format=jsonp",
 		type: "GET",
