@@ -7,8 +7,13 @@
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 		<link rel="stylesheet" href="css/font-awesome.min.css">
+  	<meta name="description" content="转发标题">
+  	<title>标题</title>
 	</head>
 	<body>
+		<div style="display:none">
+			<img src="images/1.pic_hd.jpg" height="650" width="540" alt="">
+		</div>
 		<div class="wrap">
 			<header>
 				<div class="container">
@@ -35,7 +40,6 @@
 				<div class="group user">
 					<div class="headimg">
 						<img id="userAvatar" src="" alt="">
-						<span>二维码</span>
 					</div>
 					<div class="userinfo">
 						<span class="username"></span>
@@ -71,7 +75,7 @@
 		var ziduan = location.search.match(reg)[0].split('=')[1];
 		$.ajax({
 			async:false,
-			url: "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"=/?format=jsonp&callback=cb",
+			url: localStorage.jsonUrl || "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"=/?format=jsonp&callback=cb",
 			type: "GET",
 			dataType: "jsonp",
 			jsonp: "callback",

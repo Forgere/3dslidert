@@ -88,12 +88,6 @@ footer{
 	text-align: center;
 	position: relative;
 }
-.sharearea .user .headimg span{
-	position: absolute;
-	right: 20px;
-	top: 10px;
-	font-size: 12px;
-}
 .sharearea .user .userinfo{
 	display: flex;
 	justify-content: center;
