@@ -102,7 +102,7 @@ body {
 .gr-gallery figure img {
 	display: block;
 	margin: 0 auto;
-	border: 20px solid #fff;
+	border: 15px solid #fff;
 }
 
 .gr-gallery figcaption {
@@ -112,7 +112,7 @@ body {
 	background: #fff;
 	color: #444;
 	padding: 3px;
-	margin-top: 20px;
+	margin-top: 10px;
 	position: relative;
 	text-align: left;
 	cursor: -webkit-zoom-in;
@@ -138,7 +138,7 @@ body {
 	position: absolute;
 	width: 300px;
 	height: 38px;
-	bottom: 1%;/* 脚印位置 */
+	bottom: 0.5%;/* 脚印位置 */
 	left: 50%;
 	margin-left: -150px;
 	z-index: 0;
