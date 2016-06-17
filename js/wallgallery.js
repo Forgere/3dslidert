@@ -202,7 +202,6 @@ var Gallery = (function () {
 		Gallery.settings = $.extend(true, {}, defaults, settings);
 		addImages(Gallery.settings.romoteObject);
 		// preload images
-
 		$itemsContainer.imagesLoaded(buildRoom);
 		$items = $itemsContainer.find('figure');
 	}
@@ -237,7 +236,7 @@ var Gallery = (function () {
 		// the problem here is that if the wall's width (window width) is too large, and the perspective value is too small. 
 		// We will see the background in a certain poitn of time when the wall is rotating (at least in firefox)
 		// we need to adjust the value of the perspective according to the value of the current window's width
-		if (winsize.width > 1300) {
+		if ($gallery.parent().width() > 1300) {
 			this.$el.css('perspective', 1700);
 		}
 		this.transitionSettings = transformName + ' ' + Gallery.settings.speed + 'ms ' + Gallery.settings.easing;
@@ -365,7 +364,7 @@ var Gallery = (function () {
 				sumWidths += itemW;
 
 				if (i === 0) {
-					totalLeft = winsize.width / 2 - itemW / 2;
+					totalLeft = $gallery.parent().width() / 2 - itemW / 2;
 					wallMarginLeft = Math.ceil(totalLeft);
 				} else {
 					totalLeft += lastItemW + Gallery.settings.margin;
@@ -380,9 +379,12 @@ var Gallery = (function () {
 			};
 
 			// update wall element's width
-			var wallWidth = wallMarginLeft === 0 ? winsize.width : Math.ceil(wallMarginLeft + (wall.itemsCount - 1) * Gallery.settings.margin + sumWidths + winsize.width / 2 - lastItemW / 2);
+			var wallWidth = wallMarginLeft === 0 ? $gallery.parent().width() : Math.ceil(wallMarginLeft + (wall.itemsCount - 1) * Gallery.settings.margin + sumWidths + $gallery.parent().width() / 2 - lastItemW / 2);
 			$wallElem.css('width', wallWidth).find('div.gr-floor').css('width', wallWidth);
-
+			if($(window).width() < $(window).height()){
+				console.log($(window).height());
+				this.$mainWall.find('div.gr-floor').width($(window).height());
+			}
 		},
 		changeWall: function (dir) {
 			// set origins
@@ -390,7 +392,7 @@ var Gallery = (function () {
 			this.$mainWall.css({
 				transition: 'none',
 				transformOrigin: dir === 'next' ? '100% 50%' : '0% 50%',
-				width: winsize.width,
+				width: $gallery.parent().width(),
 				transform: 'translateX(0px)',
 				backgroundPosition: this.$mainWall.data('translationVal') + 'px 0px'
 			});
@@ -399,10 +401,9 @@ var Gallery = (function () {
 
 			// update floor
 			this.$mainWall.find('div.gr-floor').css({
-				width: winsize.width,
+				width: $gallery.parent().width(),
 				backgroundPosition: this.$mainWall.data('translationVal') + 'px 0px'
 			});
-
 			// set transition again
 			this.$mainWall.css('transition', this.transitionSettings);
 
@@ -414,7 +415,7 @@ var Gallery = (function () {
 			this.renderWall(this.$auxWall);
 
 			var auxWallWidth = this.$auxWall.width(),
-				auxWallInitialTranslationVal = dir === 'next' ? winsize.width : auxWallWidth * -1 + (auxWallWidth - winsize.width) * 1,
+				auxWallInitialTranslationVal = dir === 'next' ? $gallery.parent().width() : auxWallWidth * -1 + (auxWallWidth - $gallery.parent().width()) * 1,
 				auxWallInitialAngle = dir === 'next' ? -90 : 90,
 				auxWallTransform = support.transforms3d ?
 				'translate3d(' + auxWallInitialTranslationVal + 'px,0px,0px) rotate3d(0,1,0,' + auxWallInitialAngle + 'deg)' :
@@ -426,12 +427,12 @@ var Gallery = (function () {
 			});
 
 			// change aux wall's width to windows width and reorganize items accordingly:
-			this.$auxWall.data('width', auxWallWidth).css('width', winsize.width);
-			auxfloor.css('width', winsize.width);
+			this.$auxWall.data('width', auxWallWidth).css('width', $gallery.parent().width());
+			auxfloor.css('width', $gallery.parent().width());
 
 			if (dir === 'prev') {
-				this.walls[this.currentWall].$items.css('left', '-=' + (auxWallWidth - winsize.width));
-				var bgpos = ((auxWallWidth - winsize.width) * -1) + 'px 0px';
+				this.walls[this.currentWall].$items.css('left', '-=' + (auxWallWidth - $gallery.parent().width()));
+				var bgpos = ((auxWallWidth - $gallery.parent().width()) * -1) + 'px 0px';
 				this.$auxWall.css('background-position', bgpos);
 				auxfloor.css('background-position', bgpos);
 			}
@@ -439,7 +440,7 @@ var Gallery = (function () {
 			setTimeout($.proxy(function () {
 
 				var translationVal = this.$mainWall.data('translationVal') || 0,
-					mainWallFinalTranslationVal = dir === 'next' ? -winsize.width : (translationVal - winsize.width) * -1,
+					mainWallFinalTranslationVal = dir === 'next' ? -$gallery.parent().width() : (translationVal - $gallery.parent().width()) * -1,
 					mainWallFinalAngle = dir === 'next' ? 90 : -90,
 					mainWallFinalTransform = support.transforms3d ?
 					'translate3d(' + mainWallFinalTranslationVal + 'px,0px,0px) rotate3d(0,1,0,' + mainWallFinalAngle + 'deg)' :
@@ -467,7 +468,7 @@ var Gallery = (function () {
 						// reset transform value and reorganize items accordingly
 						this.$auxWall.css({
 							transition: 'none',
-							transform: 'translateX(' + ((auxWallWidth - winsize.width) * -1) + 'px)',
+							transform: 'translateX(' + ((auxWallWidth - $gallery.parent().width()) * -1) + 'px)',
 							backgroundPosition: '0px 0px'
 						});
 
@@ -475,13 +476,13 @@ var Gallery = (function () {
 							$lastItem = wall.$items.eq(wall.itemsCount - 1);
 
 						// reorganize items accordingly
-						wall.$items.css('left', '+=' + (auxWallWidth - winsize.width));
+						wall.$items.css('left', '+=' + (auxWallWidth - $gallery.parent().width()));
 						auxfloor.css('background-position', '0px 0px');
 
 						// set transition again
 						this.$auxWall.css('transition', this.transitionSettings);
 
-						var translationVal = $lastItem.length > 0 ? -($lastItem.position().left + $lastItem.width() / 2 - winsize.width / 2) : 0;
+						var translationVal = $lastItem.length > 0 ? -($lastItem.position().left + $lastItem.width() / 2 - $gallery.parent().width() / 2) : 0;
 						this.$auxWall.data('translationVal', translationVal);
 
 					}
@@ -579,7 +580,7 @@ var Gallery = (function () {
 				}
 
 				var $item = this.walls[this.currentWall].$items.eq(this.currentItem),
-					translationVal = -($item.position().left + $item.width() / 2 - winsize.width / 2),
+					translationVal = -($item.position().left + $item.width() / 2 - $gallery.parent().width() / 2),
 					transformVal = 'translate3d(' + translationVal + 'px,0px,0px)',
 					afterAnim = function () {
 						this.$mainWall.off(transEndEventName);
