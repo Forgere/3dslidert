@@ -3,7 +3,7 @@ $(function() {
 	var matches = location.search.match(reg);
 	var ziduan = matches[1];
 	$.ajax({
-		url: localStorage.jsonUrl || "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"=/?format=jsonp",
+		url: localStorage.jsonUrl || "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"?format=jsonp",
 		type: "GET",
 		dataType: "jsonp",
 		jsonp: "callback",
@@ -21,7 +21,8 @@ $(function() {
 					photosId = [],
 					//根据id获取到的src数组；
 					photosSrc = [];
-
+			//title
+			$('title').html(result.name);
 			$.each(ajaxphotos,function(i) {
 				ajaxlayout[i] = ajaxphotos[i].scene_template.capacity;
 				photosId.push.apply( photosId, ajaxphotos[i].photo_seq.split(","));

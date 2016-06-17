@@ -76,7 +76,7 @@
 		var ziduan = matches[1];
 		$.ajax({
 			async:false,
-			url: localStorage.jsonUrl || "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"=/?format=jsonp&callback=cb",
+			url: localStorage.jsonUrl || "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"?format=jsonp",
 			type: "GET",
 			dataType: "jsonp",
 			jsonp: "callback",
@@ -92,6 +92,8 @@
 				}else{
 					$('.userinfo i').addClass('fa-mars');
 				}
+				//title
+				$('title').html(result.name);
 				//标题
 				$('.description h3').html(result.name);
 				$('.description p').html(result.description);
@@ -123,13 +125,13 @@
 							//图片src并入数组
 					photosSrc[i] = "http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + photosSrc[i];
 				});
+				$("<a href='index2.html?id="+ziduan+"'><img src='"+photosSrc[0]+"'></a>").insertBefore($('.miantitle .container'));
 				$.each(photosSrc,function(i){
 					var photoDiv = $('<div class="group photo"></div>');
 					$('<div class="showimage"><a href="index2.html?id='+ziduan+'"><img src='+photosSrc[i]+' alt=""></a></div>').appendTo(photoDiv);
 					$('<div class="showimage_description"><div class="container"><p>'+photoDes[i]+'</p></div></div>').appendTo(photoDiv);
 					photoDiv.appendTo('.zhaopian');
 				//  封面
-				$('.miantitle>img').attr('src', photosSrc[0]);
 				});
 			}
 		});
