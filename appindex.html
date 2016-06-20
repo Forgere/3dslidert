@@ -76,7 +76,7 @@
 		var ziduan = matches[1];
 		$.ajax({
 			async:false,
-			url: localStorage.jsonUrl || "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"?format=jsonp",
+			url: localStorage.jsonUrl || "http://dev.kadashow.com:8000/api/v1/galleryshare/"+ ziduan +"/?format=jsonp",
 			type: "GET",
 			dataType: "jsonp",
 			jsonp: "callback",
