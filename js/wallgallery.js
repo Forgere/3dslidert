@@ -586,10 +586,6 @@ var Gallery = (function () {
 							callback.call();
 						}
 					};
-					console.log($item.css('left'));
-					console.log($item.width() / 2);
-					console.log($item.offset().top + "+");
-
 				this.$mainWall.data('translationVal', translationVal)
 
 				if (support.transitions && support.transforms3d) {
