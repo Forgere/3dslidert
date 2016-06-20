@@ -200,16 +200,16 @@ var Gallery = (function () {
 	function init(settings) {
 		//放置于最前面，引入所有图片数据
 		Gallery.settings = $.extend(true, {}, defaults, settings);
-		addImages(Gallery.settings.romoteObject);
+		addImages(Gallery.settings.romoteObject,Gallery.settings.romoteDes);
 		// preload images
 		$itemsContainer.imagesLoaded(buildRoom);
 		$items = $itemsContainer.find('figure');
 	}
 	// allphotos一个所有图片数组
-  function addImages(allphotos) {
+  function addImages(allphotos,descriptions) {
     $photoscontain = $('.gr-main');
     $.each(allphotos,function(i){
-          var currentphoto = allphotos[i].photo;
+          var currentphoto = allphotos[i];
           var image = $("<img src = "+ currentphoto +">"),
               imageContain = $("<div></div>"),
               figcaption = $("<figcaption></figcaption>"),
@@ -217,7 +217,7 @@ var Gallery = (function () {
           image.appendTo(imageContain);
           imageContain.appendTo(warp);
           warp.appendTo($photoscontain);
-          figcaption.html(allphotos[i].describe);
+          figcaption.html(descriptions[i]);
           figcaption.insertAfter(imageContain);
     });
   }
@@ -382,7 +382,6 @@ var Gallery = (function () {
 			var wallWidth = wallMarginLeft === 0 ? $gallery.parent().width() : Math.ceil(wallMarginLeft + (wall.itemsCount - 1) * Gallery.settings.margin + sumWidths + $gallery.parent().width() / 2 - lastItemW / 2);
 			$wallElem.css('width', wallWidth).find('div.gr-floor').css('width', wallWidth);
 			if($(window).width() < $(window).height()){
-				console.log($(window).height());
 				this.$mainWall.find('div.gr-floor').width($(window).height());
 			}
 		},
@@ -396,7 +395,6 @@ var Gallery = (function () {
 				transform: 'translateX(0px)',
 				backgroundPosition: this.$mainWall.data('translationVal') + 'px 0px'
 			});
-
 			this.walls[this.lastWall].$items.css('left', '+=' + this.$mainWall.data('translationVal'));
 
 			// update floor
@@ -420,7 +418,6 @@ var Gallery = (function () {
 				auxWallTransform = support.transforms3d ?
 				'translate3d(' + auxWallInitialTranslationVal + 'px,0px,0px) rotate3d(0,1,0,' + auxWallInitialAngle + 'deg)' :
 				'translate(' + auxWallInitialTranslationVal + 'px)';
-
 			this.$auxWall.css({
 				transform: auxWallTransform,
 				transformOrigin: dir === 'next' ? '0% 50%' : '100% 50%'
@@ -580,7 +577,7 @@ var Gallery = (function () {
 				}
 
 				var $item = this.walls[this.currentWall].$items.eq(this.currentItem),
-					translationVal = -($item.position().left + $item.width() / 2 - $gallery.parent().width() / 2),
+					translationVal = -(parseInt($item.css('left')) + $item.width() / 2 - $gallery.parent().width() / 2),
 					transformVal = 'translate3d(' + translationVal + 'px,0px,0px)',
 					afterAnim = function () {
 						this.$mainWall.off(transEndEventName);
@@ -589,6 +586,9 @@ var Gallery = (function () {
 							callback.call();
 						}
 					};
+					console.log($item.css('left'));
+					console.log($item.width() / 2);
+					console.log($item.offset().top + "+");
 
 				this.$mainWall.data('translationVal', translationVal)
 
@@ -678,9 +678,16 @@ var Gallery = (function () {
 	}
 
 	function getWindowSize() {
-		return {
-			width: $window.width(),
-			height: $window.height()
+		if($window.width()>$window.height()){
+			return {
+				width: $window.width(),
+				height: $window.height()
+			};
+		}else{
+			return {
+				width: $window.height(),
+				height: $window.width()
+			};
 		}
 	}
 
