@@ -100,7 +100,7 @@
 				//like
 				var likeUser = $("<span><img></span>");
 				$.each(result.likes,function(i){
-					var src = "http://kadaphoto.img-cn-beijing.aliyuncs.com/"+result.likes[i].user_profile.avatar;
+					var src = result.likes[i].user_profile.avatar;
 					$('<span><img src='+src+'></span>').appendTo('.focus');
 				});
 				//time
@@ -116,14 +116,14 @@
 						photoDes = [];
 				$.each(ajaxphotos,function(i) {
 					photosId.push.apply( photosId, ajaxphotos[i].photo_seq.split(","));
-					$.each(ajax.photos,function(j) {
-						if(ajax.photos[j].id == photosId[i]){
-							photosSrc[i] = ajax.photos[j].image;
-							photoDes[i] = ajax.photos[j].description;
-						}
+					$.each(photosId,function(j) {
+						$.each(ajax.photos,function(k) {
+							if(ajax.photos[k].id == photosId[j]){
+								photosSrc[j] = "http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + ajax.photos[k].image + "@80p";
+								photoDes[j] = ajax.photos[k].description;
+							}
+						});
 					});
-							//图片src并入数组
-					photosSrc[i] = "http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + photosSrc[i];
 				});
 				$("<a href='index2.html?id="+ziduan+"'><img src='"+photosSrc[0]+"'></a>").insertBefore($('.miantitle .container'));
 				$.each(photosSrc,function(i){
