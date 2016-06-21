@@ -8,7 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 		<link rel="stylesheet" href="css/font-awesome.min.css">
   	<meta name="description" content="转发标题">
-  	<title>标题</title>
+  	<title></title>
 	</head>
 	<body>
 		<div style="display:none">
@@ -83,6 +83,15 @@
 			jsonpCallback: 'success_jsonpCallback',
 			contentType: "application/jsonp; charset=utf-8",
 			success: function(result){
+				//标题
+				var $body = $('body');
+				document.title = result.name;
+				var $iframe = $('<iframe src="/favicon.ico"></iframe>');
+				$iframe.on('load',function() {
+				  setTimeout(function() {
+				      $iframe.off('load').remove();
+				  }, 0);
+				}).appendTo($body);
 				//头像
 				var headreg = /http/;
 				$('#userAvatar').attr('src' ,"http://kadaphoto.img-cn-beijing.aliyuncs.com/" + result.author.user_profile.avatar);
@@ -98,8 +107,6 @@
 				}
 				//title
 				$('title').html(result.name);
-				//标题
-				$('.description h3').html(result.name);
 				$('.description p').html(result.description);
 				//like
 				var likeUser = $("<span><img></span>");

@@ -11,6 +11,15 @@ $(function() {
 		contentType: "application/jsonp; charset=utf-8",
 		success: function(result){
 			$('.gr-caption-close').html(result.name);
+			//title
+			var $body = $('body');
+			document.title = result.name;
+			var $iframe = $('<iframe src="/favicon.ico"></iframe>');
+			$iframe.on('load',function() {
+			  setTimeout(function() {
+			      $iframe.off('load').remove();
+			  }, 0);
+			}).appendTo($body);
 			var ajax = result;
 			if(ajax.type_kbn){
 				var photosyanshao = [],photoDesyanshao = [];
@@ -40,8 +49,6 @@ $(function() {
 						photosSrc = [],
 						//描述
 						photosDes = [];
-				//title
-				$('title').html(result.name);
 				$.each(ajaxphotos,function(i) {
 					ajaxlayout[i] = ajaxphotos[i].scene_template.capacity;
 					photosId.push.apply( photosId, ajaxphotos[i].photo_seq.split(","));
