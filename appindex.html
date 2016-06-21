@@ -84,7 +84,11 @@
 			contentType: "application/jsonp; charset=utf-8",
 			success: function(result){
 				//头像
+				var headreg = /http/;
 				$('#userAvatar').attr('src' ,"http://kadaphoto.img-cn-beijing.aliyuncs.com/" + result.author.user_profile.avatar);
+				if(result.author.user_profile.avatar.match(headreg)){
+					$('#userAvatar').attr('src' ,result.author.user_profile.avatar);
+				}
 				//昵称
 				$('.username').html(result.author.user_profile.nickname);
 				if(result.author.user_profile.gender){
@@ -100,8 +104,14 @@
 				//like
 				var likeUser = $("<span><img></span>");
 				$.each(result.likes,function(i){
-					var src =result.likes[i].user_profile.avatar;
-					$('<span><img src='+src+'></span>').appendTo('.focus');
+					var src ;
+				if(result.likes[i].user_profile.avatar.match(headreg)){
+					src =result.likes[i].user_profile.avatar;
+				}else{
+					src ="http://kadaphoto.img-cn-beijing.aliyuncs.com/" + result.likes[i].user_profile.avatar;
+				}
+				$('<span><img src='+src+'></span>').appendTo('.focus');
+
 				});
 				//time
 				$('.created_time').html(result.created.split("T")[0] + " " + result.created.split("T")[1].split(".")[0]);

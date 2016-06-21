@@ -40,6 +40,8 @@ header{
 }
 .title .adtitle{
 	flex: 1;
+	font-size: 14px;
+	font-weight: bold;
 }
 .title .downloadbutton{
 	flex: 0 0 60px;

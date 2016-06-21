@@ -105,7 +105,7 @@ body {
 .gr-gallery figcaption {
 	width: 145px;/*注角宽度*/
 	display: block;
-	font-size: 5px;
+	font-size: 1em;
 	background: #fff;
 	color: #444;
 	padding: 3px;

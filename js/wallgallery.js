@@ -217,8 +217,10 @@ var Gallery = (function () {
           image.appendTo(imageContain);
           imageContain.appendTo(warp);
           warp.appendTo($photoscontain);
-          figcaption.html(descriptions[i]);
-          figcaption.insertAfter(imageContain);
+          if(descriptions[i] !== ''){
+	          figcaption.html(descriptions[i]);
+	          figcaption.insertAfter(imageContain);
+          }
     });
   }
 	function buildRoom() {
