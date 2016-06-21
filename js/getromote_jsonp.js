@@ -15,7 +15,7 @@ $(function() {
 			if(ajax.type_kbn){
 				var photosyanshao = [],photoDesyanshao = [];
 				$.each(result.photos,function(i) {
-					photosyanshao[i] ="http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + result.photos[i].image;
+					photosyanshao[i] ="http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + result.photos[i].image+ "@50p";
 					photoDesyanshao[i] = result.photos[i].description;
 				});
 				var ajaxlayoutyanshao=[];
