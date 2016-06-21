@@ -48,7 +48,7 @@ $(function() {
 					$.each(photosId,function(j) {
 						$.each(ajax.photos,function(k) {
 							if(ajax.photos[k].id == photosId[j]){
-								photosSrc[j] = "http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + ajax.photos[k].image + "@80p";
+								photosSrc[j] = "http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + ajax.photos[k].image + "@50p";
 								photosDes[j] = ajax.photos[k].description;
 							}
 						});

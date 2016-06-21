@@ -124,10 +124,10 @@
 						photosyanshao[i] ="http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + result.photos[i].image;
 						photoDesyanshao[i] = result.photos[i].description;
 					});
-					$("<a href='index2.html?id="+ziduan+"'><img src='"+photosyanshao[0]+"'></a>").insertBefore($('.miantitle .container'));
+					$("<a href='3D.html?id="+ziduan+"'><img src='"+photosyanshao[0]+"'></a>").insertBefore($('.miantitle .container'));
 					$.each(photosyanshao,function(i){
 						var photoDiv = $('<div class="group photo"></div>');
-						$('<div class="showimage"><a href="index2.html?id='+ziduan+'"><img src='+photosyanshao[i]+' alt=""></a></div>').appendTo(photoDiv);
+						$('<div class="showimage"><a href="3D.html?id='+ziduan+'"><img src='+photosyanshao[i]+' alt=""></a></div>').appendTo(photoDiv);
 						$('<div class="showimage_description"><div class="container"><p>'+photoDesyanshao[i]+'</p></div></div>').appendTo(photoDiv);
 						photoDiv.appendTo('.zhaopian');
 					//  封面
@@ -145,16 +145,16 @@
 						$.each(photosId,function(j) {
 							$.each(ajax.photos,function(k) {
 								if(ajax.photos[k].id == photosId[j]){
-									photosSrc[j] = "http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + ajax.photos[k].image + "@80p";
+									photosSrc[j] = "http://kadaphoto.img-cn-beijing.aliyuncs.com/User/" + ajax.photos[k].image + "@50p";
 									photoDes[j] = ajax.photos[k].description;
 								}
 							});
 						});
 					});
-					$("<a href='index2.html?id="+ziduan+"'><img src='"+photosSrc[0]+"'></a>").insertBefore($('.miantitle .container'));
+					$("<a href='3D.html?id="+ziduan+"'><img src='"+photosSrc[0]+"'></a>").insertBefore($('.miantitle .container'));
 					$.each(photosSrc,function(i){
 						var photoDiv = $('<div class="group photo"></div>');
-						$('<div class="showimage"><a href="index2.html?id='+ziduan+'"><img src='+photosSrc[i]+' alt=""></a></div>').appendTo(photoDiv);
+						$('<div class="showimage"><a href="3D.html?id='+ziduan+'"><img src='+photosSrc[i]+' alt=""></a></div>').appendTo(photoDiv);
 						$('<div class="showimage_description"><div class="container"><p>'+photoDes[i]+'</p></div></div>').appendTo(photoDiv);
 						photoDiv.appendTo('.zhaopian');
 					//  封面
