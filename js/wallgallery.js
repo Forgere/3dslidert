@@ -357,9 +357,9 @@ var Gallery = (function () {
 
 				if (itemH > wallH - wallmargins) {
 					$item.find('img').height(wallH - wallmargins - figcaptionH);
-					$item.css('top', (wallmargins / 2));
+					$item.css('top', (wallmargins / 2)*0.75);
 				} else {
-					$item.css('top', (wallH - itemH) / 2);
+					$item.css('top', (wallH - itemH) / 2)*0.75;
 				}
 				var itemW = wall.widths[i] || $item.width();
 
